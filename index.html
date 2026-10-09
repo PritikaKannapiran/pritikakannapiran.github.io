@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pritika Kannapiran</title>
+    <meta
+      name="description"
+      content="Pritika Kannapiran is a Master's student at the University of Florida and an AI Engineer."
+    />
+    <meta name="theme-color" content="#F4F1EB" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        var theme =
+          stored ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", theme === "dark" ? "#121110" : "#F4F1EB");
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="/">PritikaKannapiran</a>
+      <button
+        class="theme-toggle"
+        type="button"
+        aria-label="Switch to dark mode"
+      >
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2.4v2.2M12 19.4v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.4 12h2.2M19.4 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6"
+          />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M20.2 14.4A7.6 7.6 0 0 1 9.6 3.8 7.2 7.2 0 1 0 20.2 14.4z"
+          />
+          <path d="M17.2 3.2l.35 1.15 1.15.35-1.15.35-.35 1.15-.35-1.15-1.15-.35 1.15-.35.35-1.15z" />
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <img
+            class="portrait"
+            src="assets/pritika-main.PNG"
+            alt="Portrait of Pritika Kannapiran"
+            width="831"
+            height="1062"
+          />
+          <div class="intro">
+            <h1>Hi, I am Pritika Kannapiran!</h1>
+            <p>
+              I am a Master’s student at the University of Florida and
+              <span class="line">I am an AI Engineer!</span>
+            </p>
+            <a class="cta" href="#about">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 1.2l1.15 7.05 7.15 1.2-7.15 1.25L12 17.8l-1.15-7.1L3.7 9.45l7.15-1.2L12 1.2z"
+                />
+              </svg>
+              Let’s get to know me!
+            </a>
+            <nav class="links" aria-label="Profiles">
+              <a href="assets/Pritika_Kannapiran_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+              <a href="https://www.linkedin.com/in/pritika-k/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/PritikaKannapiran" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
