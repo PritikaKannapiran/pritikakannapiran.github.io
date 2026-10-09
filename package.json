@@ -1,0 +1,17 @@
+{
+  "name": "pritikakannapiran.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio site for Pritika Kannapiran, published with GitHub Pages.",
+  "homepage": "https://pritikakannapiran.github.io",
+  "scripts": {
+    "start": "serve . -l 8765",
+    "dev": "serve . -l 8765"
+  },
+  "devDependencies": {
+    "serve": "^14.2.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

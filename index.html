@@ -58,13 +58,23 @@
     <main>
       <section class="hero">
         <div class="hero-inner">
-          <img
-            class="portrait"
-            src="assets/pritika-main.PNG"
-            alt="Portrait of Pritika Kannapiran"
-            width="831"
-            height="1062"
-          />
+          <div class="portrait-wrap">
+            <img
+              class="portrait-shadow"
+              src="assets/pritika-main.PNG"
+              alt=""
+              aria-hidden="true"
+              width="831"
+              height="1062"
+            />
+            <img
+              class="portrait"
+              src="assets/pritika-main.PNG"
+              alt="Portrait of Pritika Kannapiran"
+              width="831"
+              height="1062"
+            />
+          </div>
           <div class="intro">
             <h1>Hi, I am Pritika Kannapiran!</h1>
             <p>
@@ -88,6 +98,28 @@
         </div>
       </section>
     </main>
+
+    <button class="scroll-down" type="button" aria-label="Scroll down">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M6 9.5 12 15.5l6-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor-trail"><span class="cursor-ring"></span></span>
+      <svg class="cursor-star" viewBox="0 0 24 24">
+        <path
+          d="M12 1.2l1.15 7.05 7.15 1.2-7.15 1.25L12 17.8l-1.15-7.1L3.7 9.45l7.15-1.2L12 1.2z"
+        />
+      </svg>
+    </div>
 
     <script src="script.js"></script>
   </body>
