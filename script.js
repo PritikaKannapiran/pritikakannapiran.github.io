@@ -29,6 +29,46 @@ toggle.addEventListener("click", () => {
   replayShadow();
 });
 
+const sky = document.querySelector(".shooting-stars");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function launchStar() {
+  const star = document.createElement("span");
+  star.className = "shooting-star";
+  const leftward = Math.random() > 0.5;
+  const startY = Math.random() * window.innerHeight * 0.7;
+  const drop = 70 + Math.random() * 180;
+  const startX = leftward ? window.innerWidth + 40 : -170;
+  const endX = leftward ? -190 : window.innerWidth + 40;
+  const endY = startY + drop;
+  const angle = (Math.atan2(endY - startY, endX - startX) * 180) / Math.PI;
+  const from = `translate(${startX}px, ${startY}px) rotate(${angle}deg)`;
+  const to = `translate(${endX}px, ${endY}px) rotate(${angle}deg)`;
+  sky.appendChild(star);
+  const motion = star.animate(
+    [
+      { transform: from, opacity: 0 },
+      { transform: from, opacity: 0.95, offset: 0.12 },
+      { transform: to, opacity: 0 },
+    ],
+    { duration: 2200, easing: "ease-in", fill: "forwards" }
+  );
+  motion.onfinish = () => star.remove();
+}
+
+function scheduleStar() {
+  const wait = 2600 + Math.random() * 4800;
+  window.setTimeout(() => {
+    if (!document.hidden) launchStar();
+    scheduleStar();
+  }, wait);
+}
+
+if (sky && !reduceMotion) {
+  window.setTimeout(launchStar, 1200);
+  scheduleStar();
+}
+
 document.querySelector(".scroll-down").addEventListener("click", () => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.scrollBy({

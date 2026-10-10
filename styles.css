@@ -6,6 +6,7 @@
   --hover: #2c2a27;
   --shadow: rgba(23, 22, 20, 0.16);
   --ring: rgba(23, 22, 20, 0.45);
+  --icon: #8a847c;
   color-scheme: light;
 }
 
@@ -17,6 +18,7 @@
   --hover: #e7e1d8;
   --shadow: rgba(0, 0, 0, 0.55);
   --ring: rgba(244, 241, 235, 0.55);
+  --icon: #a39e96;
   color-scheme: dark;
 }
 
@@ -40,8 +42,75 @@ body {
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
+.bg-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 900px;
+}
+
+.bg-icon {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  fill: none;
+  stroke: var(--icon);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.2;
+  animation: drift var(--drift) ease-in-out infinite, tumble var(--spin) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.bg-icon path,
+.bg-icon circle,
+.bg-icon rect {
+  fill: none;
+}
+
+.bg-icon path[d^="M12 2.2"],
+.bg-icon path[d^="M12 3 "] {
+  fill: color-mix(in srgb, var(--icon) 35%, transparent);
+  stroke: var(--icon);
+}
+
+[data-theme="dark"] .bg-icon {
+  opacity: 0.24;
+}
+
+.shooting-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shooting-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--icon) 15%, transparent) 35%,
+    color-mix(in srgb, var(--ink) 70%, white) 100%
+  );
+  transform-origin: right center;
+  opacity: 0;
+}
+
 .site-header {
   position: absolute;
+  z-index: 2;
   top: 0;
   right: 0;
   left: 0;
@@ -110,6 +179,8 @@ body {
 }
 
 main {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: 1;
 }
@@ -127,14 +198,14 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 64px;
-  width: min(1080px, 100%);
+  gap: 80px;
+  width: min(1240px, 100%);
 }
 
 .portrait-wrap {
   position: relative;
   flex: none;
-  width: min(280px, 42vw);
+  width: min(380px, 46vw);
 }
 
 .portrait,
@@ -175,7 +246,7 @@ main {
 h1 {
   margin: 0;
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-  font-size: clamp(2rem, 2.7vw, 2.7rem);
+  font-size: clamp(2.45rem, 3.6vw, 3.55rem);
   font-weight: 650;
   letter-spacing: -0.035em;
   line-height: 1.12;
@@ -184,9 +255,9 @@ h1 {
 
 .intro p {
   margin: 18px 0 0;
-  max-width: 34rem;
+  max-width: 40rem;
   color: var(--ink);
-  font-size: 1.12rem;
+  font-size: 1.35rem;
   font-weight: 400;
   line-height: 1.55;
 }
@@ -391,6 +462,25 @@ html.cursor-button .cursor-ring {
   }
 }
 
+@keyframes drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 12px -26px;
+  }
+}
+
+@keyframes tumble {
+  from {
+    transform: rotateX(18deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(18deg) rotateY(360deg);
+  }
+}
+
 @keyframes float {
   0%,
   100% {
@@ -448,7 +538,7 @@ html.cursor-button .cursor-ring {
   }
 
   .portrait-wrap {
-    width: min(240px, 68vw);
+    width: min(300px, 78vw);
   }
 
   .intro {
@@ -458,7 +548,7 @@ html.cursor-button .cursor-ring {
   }
 
   h1 {
-    font-size: clamp(2rem, 8vw, 2.45rem);
+    font-size: clamp(2.2rem, 9vw, 3rem);
     white-space: normal;
   }
 
