@@ -69,13 +69,60 @@ if (sky && !reduceMotion) {
   scheduleStar();
 }
 
-document.querySelector(".scroll-down").addEventListener("click", () => {
+const about = document.querySelector("#about");
+const scrollButton = document.querySelector(".scroll-down");
+
+function viewingAbout() {
+  return about.getBoundingClientRect().top < window.innerHeight * 0.45;
+}
+
+function syncScrollButton() {
+  const up = viewingAbout();
+  scrollButton.classList.toggle("is-up", up);
+  scrollButton.setAttribute("aria-label", up ? "Scroll to top" : "Scroll down");
+}
+
+function smoothScrollTo(target) {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  window.scrollBy({
-    top: window.innerHeight,
-    behavior: reduce ? "auto" : "smooth",
-  });
+  if (reduce) {
+    target.scrollIntoView({ behavior: "auto", block: "start" });
+    return;
+  }
+
+  const page = document.documentElement;
+  page.style.scrollSnapType = "none";
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  const restore = () => {
+    page.style.scrollSnapType = "";
+    window.removeEventListener("scrollend", restore);
+  };
+  window.addEventListener("scrollend", restore);
+  window.setTimeout(restore, 900);
+}
+
+const home = document.querySelector("#home");
+
+document.querySelector(".wordmark").addEventListener("click", (event) => {
+  event.preventDefault();
+  smoothScrollTo(home);
+  history.pushState(null, "", "#home");
 });
+
+document.querySelector(".cta").addEventListener("click", (event) => {
+  event.preventDefault();
+  smoothScrollTo(about);
+  history.pushState(null, "", "#about");
+});
+
+scrollButton.addEventListener("click", () => {
+  const goingHome = viewingAbout();
+  smoothScrollTo(goingHome ? home : about);
+  history.pushState(null, "", goingHome ? "#home" : "#about");
+});
+
+window.addEventListener("scroll", syncScrollButton, { passive: true });
+syncScrollButton();
 
 const cursor = document.querySelector(".cursor");
 const finePointer = window.matchMedia("(pointer: fine)").matches;

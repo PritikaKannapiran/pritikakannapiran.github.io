@@ -32,6 +32,10 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-snap-type: y mandatory;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -109,8 +113,8 @@ body {
 }
 
 .site-header {
-  position: absolute;
-  z-index: 2;
+  position: fixed;
+  z-index: 4;
   top: 0;
   right: 0;
   left: 0;
@@ -183,6 +187,7 @@ main {
   z-index: 1;
   display: flex;
   flex: 1;
+  flex-direction: column;
 }
 
 .hero {
@@ -190,8 +195,10 @@ main {
   flex: 1;
   align-items: center;
   justify-content: center;
+  width: 100%;
   min-height: 100vh;
   padding: 96px 40px;
+  scroll-snap-align: start;
 }
 
 .hero-inner {
@@ -391,6 +398,14 @@ h1 {
   height: 16px;
 }
 
+.scroll-down svg {
+  transition: transform 0.35s ease;
+}
+
+.scroll-down.is-up svg {
+  transform: rotate(180deg);
+}
+
 .scroll-down:hover {
   box-shadow: 0 12px 22px rgba(23, 22, 20, 0.28);
   transform: translateY(-3px);
@@ -521,6 +536,68 @@ html.cursor-button .cursor-ring {
   }
 }
 
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 112px 40px 96px;
+  scroll-snap-align: start;
+}
+
+.about-inner {
+  width: min(42rem, 100%);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.about h2 {
+  margin: 14px 0 0;
+  font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 560;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.about p {
+  margin: 22px 0 0;
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 32px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 1.02rem;
+  line-height: 1.4;
+}
+
+.facts span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
 @media (max-width: 760px) {
   .site-header {
     padding: 20px 20px 0;
@@ -558,6 +635,15 @@ html.cursor-button .cursor-ring {
 
   .intro p {
     max-width: 22rem;
+  }
+
+  .about {
+    padding: 108px 22px 88px;
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 }
 
