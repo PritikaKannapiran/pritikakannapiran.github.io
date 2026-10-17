@@ -55,6 +55,15 @@ body {
   perspective: 900px;
 }
 
+.bg-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-about {
+  opacity: 0;
+}
+
 .bg-icon {
   position: absolute;
   left: var(--x);
