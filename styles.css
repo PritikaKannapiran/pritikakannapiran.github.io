@@ -665,19 +665,26 @@ html.cursor-button .cursor-ring {
   letter-spacing: -0.02em;
 }
 
-.roles h3 a {
+.roles h3 a,
+.role-line a {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 4px;
   transition: text-shadow 0.25s ease;
 }
 
-.roles h3 a:hover {
+.roles h3 a:hover,
+.role-line a:hover {
   text-shadow: 0 10px 16px rgba(23, 22, 20, 0.2);
 }
 
-[data-theme="dark"] .roles h3 a:hover {
+[data-theme="dark"] .roles h3 a:hover,
+[data-theme="dark"] .role-line a:hover {
   text-shadow: 0 10px 18px rgba(0, 0, 0, 0.55);
+}
+
+.role-line a {
+  margin-left: 0.75em;
 }
 
 .role-org {
@@ -691,6 +698,24 @@ html.cursor-button .cursor-ring {
   font-size: 1rem;
   line-height: 1.4;
   white-space: nowrap;
+}
+
+@media (max-height: 820px) {
+  #projects {
+    padding: 64px 40px 28px;
+  }
+
+  #projects .roles {
+    margin-top: 16px;
+  }
+
+  #projects .roles li {
+    padding: 8px 0 10px;
+  }
+
+  #projects .role-line {
+    margin-top: 6px;
+  }
 }
 
 .stack {

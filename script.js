@@ -126,8 +126,9 @@ const about = document.querySelector("#about");
 const work = document.querySelector("#work");
 const papers = document.querySelector("#papers");
 const stack = document.querySelector("#stack");
+const projects = document.querySelector("#projects");
 const scrollButton = document.querySelector(".scroll-down");
-const slides = [document.querySelector("#home"), about, work, papers, stack];
+const slides = [document.querySelector("#home"), about, work, papers, projects, stack];
 
 if (stack && "IntersectionObserver" in window) {
   const drawStack = new IntersectionObserver(
@@ -169,12 +170,24 @@ function smoothScrollTo(target) {
   page.style.scrollSnapType = "none";
   target.scrollIntoView({ behavior: "smooth", block: "start" });
 
+  let done = false;
+  const arrived = () => Math.abs(target.getBoundingClientRect().top) < 2;
   const restore = () => {
+    if (done || !arrived()) return;
+    done = true;
     page.style.scrollSnapType = "";
     window.removeEventListener("scrollend", restore);
+    window.clearInterval(watch);
+    window.clearTimeout(giveUp);
   };
+  const watch = window.setInterval(restore, 80);
+  const giveUp = window.setTimeout(() => {
+    done = true;
+    page.style.scrollSnapType = "";
+    window.removeEventListener("scrollend", restore);
+    window.clearInterval(watch);
+  }, 4000);
   window.addEventListener("scrollend", restore);
-  window.setTimeout(restore, 900);
 }
 
 const home = document.querySelector("#home");
