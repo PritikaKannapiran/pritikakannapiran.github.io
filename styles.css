@@ -567,7 +567,9 @@ html.cursor-button .cursor-ring {
   text-transform: uppercase;
 }
 
-.about h2 {
+.about h2,
+.work h2,
+.stack h2 {
   margin: 14px 0 0;
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
@@ -605,6 +607,222 @@ html.cursor-button .cursor-ring {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.62;
+}
+
+.work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 88px 40px 56px;
+  scroll-snap-align: start;
+}
+
+.work-inner {
+  width: min(44rem, 100%);
+}
+
+.roles {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.roles li {
+  padding: 20px 0 22px;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.roles li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.role-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.role-when {
+  margin: 0;
+  flex: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.62;
+}
+
+.roles h3 {
+  margin: 0;
+  font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.roles h3 a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: text-shadow 0.25s ease;
+}
+
+.roles h3 a:hover {
+  text-shadow: 0 10px 16px rgba(23, 22, 20, 0.2);
+}
+
+[data-theme="dark"] .roles h3 a:hover {
+  text-shadow: 0 10px 18px rgba(0, 0, 0, 0.55);
+}
+
+.role-org {
+  margin: 6px 0 0;
+  font-size: 0.95rem;
+  opacity: 0.72;
+}
+
+.role-line {
+  margin: 12px 0 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 88px 40px 56px;
+  scroll-snap-align: start;
+}
+
+.stack-inner {
+  width: min(40rem, 100%);
+}
+
+.stack-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.stack-group p {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.stack-group ul {
+  display: grid;
+  justify-content: center;
+  gap: 16px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cols-5 {
+  grid-template-columns: repeat(5, 7.2rem);
+}
+
+.cols-4 {
+  grid-template-columns: repeat(4, 7.2rem);
+}
+
+.cols-3 {
+  grid-template-columns: repeat(3, 7.2rem);
+}
+
+.tool {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+}
+
+.tool::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 52px;
+  height: 52px;
+  margin-left: -26px;
+  border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.84);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tool:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tool svg {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.86;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.tool svg :is(path, circle, rect, line) {
+  stroke-dasharray: 160;
+}
+
+.tool svg .dot {
+  fill: currentColor;
+  stroke: none;
+  stroke-dasharray: none;
+}
+
+.stack.is-drawn .tool svg :is(path, circle, rect, line):not(.dot) {
+  animation: draw-stroke 0.85s ease both;
+  animation-delay: calc(var(--i) * 40ms);
+}
+
+.tool:hover svg {
+  opacity: 1;
+  transform: translateY(-3px) scale(1.06);
+}
+
+.tool span {
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  opacity: 0.72;
+}
+
+@keyframes draw-stroke {
+  from {
+    stroke-dashoffset: 160;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (max-width: 760px) {
@@ -653,6 +871,40 @@ html.cursor-button .cursor-ring {
   .facts {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  .work {
+    align-items: flex-start;
+    padding: 96px 22px 64px;
+  }
+
+  .role-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .role-line {
+    white-space: normal;
+  }
+
+  .stack {
+    align-items: flex-start;
+    padding: 96px 22px 64px;
+  }
+
+  .stack-group ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tool {
+    width: 6.4rem;
   }
 }
 

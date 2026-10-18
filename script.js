@@ -123,14 +123,37 @@ if (homeLayer && aboutLayer) {
 }
 
 const about = document.querySelector("#about");
+const work = document.querySelector("#work");
+const papers = document.querySelector("#papers");
+const stack = document.querySelector("#stack");
 const scrollButton = document.querySelector(".scroll-down");
+const slides = [document.querySelector("#home"), about, work, papers, stack];
 
-function viewingAbout() {
-  return about.getBoundingClientRect().top < window.innerHeight * 0.45;
+if (stack && "IntersectionObserver" in window) {
+  const drawStack = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      stack.classList.add("is-drawn");
+      drawStack.disconnect();
+    },
+    { threshold: 0.35 }
+  );
+  drawStack.observe(stack);
+} else if (stack) {
+  stack.classList.add("is-drawn");
+}
+
+function currentSlide() {
+  const line = window.innerHeight * 0.45;
+  let current = slides[0];
+  for (const slide of slides) {
+    if (slide.getBoundingClientRect().top < line) current = slide;
+  }
+  return current;
 }
 
 function syncScrollButton() {
-  const up = viewingAbout();
+  const up = currentSlide() === stack;
   scrollButton.classList.toggle("is-up", up);
   scrollButton.setAttribute("aria-label", up ? "Scroll to top" : "Scroll down");
 }
@@ -169,9 +192,10 @@ document.querySelector(".cta").addEventListener("click", (event) => {
 });
 
 scrollButton.addEventListener("click", () => {
-  const goingHome = viewingAbout();
-  smoothScrollTo(goingHome ? home : about);
-  history.pushState(null, "", goingHome ? "#home" : "#about");
+  const here = currentSlide();
+  const next = here === stack ? home : slides[slides.indexOf(here) + 1];
+  smoothScrollTo(next);
+  history.pushState(null, "", `#${next.id}`);
 });
 
 window.addEventListener("scroll", syncScrollButton, { passive: true });
