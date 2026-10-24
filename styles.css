@@ -8,6 +8,12 @@
   --ring: rgba(23, 22, 20, 0.45);
   --icon: #8a847c;
   --accent: #a24b38;
+  --glow: rgba(232, 176, 72, 0.55);
+  --glow-x: 30%;
+  --glow-y: 34%;
+  --glow-2: rgba(214, 112, 52, 0.36);
+  --glow-x2: 72%;
+  --glow-y2: 68%;
   color-scheme: light;
 }
 
@@ -21,6 +27,12 @@
   --ring: rgba(244, 241, 235, 0.55);
   --icon: #a39e96;
   --accent: #d48974;
+  --glow: rgba(232, 176, 72, 0.28);
+  --glow-x: 30%;
+  --glow-y: 34%;
+  --glow-2: rgba(214, 112, 52, 0.16);
+  --glow-x2: 72%;
+  --glow-y2: 68%;
   color-scheme: dark;
 }
 
@@ -36,6 +48,7 @@ body {
 
 html {
   scroll-snap-type: y mandatory;
+  background: var(--bg);
 }
 
 body {
@@ -46,6 +59,28 @@ body {
   color: var(--ink);
   font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
   transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -8%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 48% at var(--glow-x) var(--glow-y), var(--glow) 0%, transparent 72%),
+    radial-gradient(ellipse 40% 34% at var(--glow-x2) var(--glow-y2), var(--glow-2) 0%, transparent 70%);
+  animation: glow-float 18s ease-in-out infinite;
+}
+
+@keyframes glow-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(1.1vw, -0.8vh, 0);
+  }
 }
 
 .bg-field {
