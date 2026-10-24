@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
       name="description"
       content="Pritika Kannapiran is a Master's student at the University of Florida and an AI Engineer."
     />
-    <meta name="theme-color" content="#F4F1EB" />
+    <meta name="theme-color" content="#121110" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,11 +20,7 @@
     <script>
       (function () {
         var stored = localStorage.getItem("theme");
-        var theme =
-          stored ||
-          (window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light");
+        var theme = stored || "dark";
         document.documentElement.setAttribute("data-theme", theme);
         document
           .querySelector('meta[name="theme-color"]')
@@ -178,7 +174,7 @@
       <button
         class="theme-toggle"
         type="button"
-        aria-label="Switch to dark mode"
+        aria-label="Switch to light mode"
       >
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4" />
@@ -660,6 +656,41 @@
         </div>
       </section>
 
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact-inner">
+          <p class="kicker">Contact</p>
+          <h2 id="contact-title">Write to me.</h2>
+          <p class="contact-note">
+            Hey! If you want to talk about agentic AI, a project, or just say hello, I would love to hear from you!
+          </p>
+          <a class="contact-mail" href="mailto:pritika.k03@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="5.5" width="17" height="13" rx="1.6" />
+              <path d="M4 7.2 12 13l8-5.8" />
+            </svg>
+            <span>pritika.k03@gmail.com</span>
+          </a>
+          <nav class="contact-row" aria-label="Profiles">
+            <a href="https://www.linkedin.com/in/pritika-k/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <path d="M8 11v5.2M8 8.4h.01M12 16.2v-3a1.8 1.8 0 0 1 3.6 0v3" />
+                <path d="M12 13.2v3" />
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+            <svg class="contact-star" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 1.2l1.15 7.05 7.15 1.2-7.15 1.25L12 17.8l-1.15-7.1L3.7 9.45l7.15-1.2L12 1.2z" />
+            </svg>
+            <a href="https://github.com/PritikaKannapiran" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 18.5c-3.2 1-3.2-1.6-4.8-1.6M15.2 21v-2.6a2.2 2.2 0 0 0-.6-1.7c2-.2 4.1-1 4.1-4.4a3.5 3.5 0 0 0-1-2.4 3.3 3.3 0 0 0-.1-2.4s-.8-.2-2.6 1a8.7 8.7 0 0 0-4.6 0c-1.8-1.2-2.6-1-2.6-1a3.3 3.3 0 0 0-.1 2.4 3.5 3.5 0 0 0-1 2.4c0 3.4 2.1 4.2 4.1 4.4a2.2 2.2 0 0 0-.6 1.7V21" />
+              </svg>
+              <span>GitHub</span>
+            </a>
+          </nav>
+        </div>
+      </section>
     </main>
 
     <button class="scroll-down" type="button" aria-label="Scroll down">

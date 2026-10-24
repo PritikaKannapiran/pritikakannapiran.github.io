@@ -21,7 +21,7 @@ function applyTheme(theme) {
   themeColor?.setAttribute("content", isDark ? "#121110" : "#F4F1EB");
 }
 
-applyTheme(root.getAttribute("data-theme") || "light");
+applyTheme(root.getAttribute("data-theme") || "dark");
 
 toggle.addEventListener("click", () => {
   const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -127,22 +127,41 @@ const work = document.querySelector("#work");
 const papers = document.querySelector("#papers");
 const stack = document.querySelector("#stack");
 const projects = document.querySelector("#projects");
+const contact = document.querySelector("#contact");
 const scrollButton = document.querySelector(".scroll-down");
-const slides = [document.querySelector("#home"), about, work, papers, projects, stack];
+const slides = [document.querySelector("#home"), about, work, papers, projects, stack, contact];
 
-if (stack && "IntersectionObserver" in window) {
-  const drawStack = new IntersectionObserver(
+function replayDraw(section) {
+  section.classList.remove("is-drawn");
+  void section.offsetWidth;
+  section.classList.add("is-drawn");
+}
+
+function watchDraw(section) {
+  if (!section) return;
+  if (!("IntersectionObserver" in window)) {
+    section.classList.add("is-drawn");
+    return;
+  }
+  let drawn = false;
+  const observer = new IntersectionObserver(
     (entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
-      stack.classList.add("is-drawn");
-      drawStack.disconnect();
+      const visible = entries.some((entry) => entry.isIntersecting);
+      if (visible && !drawn) {
+        replayDraw(section);
+        drawn = true;
+      } else if (!visible && drawn) {
+        section.classList.remove("is-drawn");
+        drawn = false;
+      }
     },
     { threshold: 0.35 }
   );
-  drawStack.observe(stack);
-} else if (stack) {
-  stack.classList.add("is-drawn");
+  observer.observe(section);
 }
+
+watchDraw(stack);
+watchDraw(contact);
 
 function currentSlide() {
   const line = window.innerHeight * 0.45;
@@ -154,7 +173,7 @@ function currentSlide() {
 }
 
 function syncScrollButton() {
-  const up = currentSlide() === stack;
+  const up = currentSlide() === contact;
   scrollButton.classList.toggle("is-up", up);
   scrollButton.setAttribute("aria-label", up ? "Scroll to top" : "Scroll down");
 }
@@ -206,7 +225,7 @@ document.querySelector(".cta").addEventListener("click", (event) => {
 
 scrollButton.addEventListener("click", () => {
   const here = currentSlide();
-  const next = here === stack ? home : slides[slides.indexOf(here) + 1];
+  const next = here === contact ? home : slides[slides.indexOf(here) + 1];
   smoothScrollTo(next);
   history.pushState(null, "", `#${next.id}`);
 });
