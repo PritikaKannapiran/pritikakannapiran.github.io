@@ -83,56 +83,6 @@ body::before {
   }
 }
 
-.bg-field {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  perspective: 900px;
-}
-
-.bg-layer {
-  position: absolute;
-  inset: 0;
-}
-
-.bg-about {
-  opacity: 0;
-}
-
-.bg-icon {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--s);
-  height: var(--s);
-  fill: none;
-  stroke: var(--icon);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.2;
-  animation: drift var(--drift) ease-in-out infinite, tumble var(--spin) linear infinite;
-  animation-delay: var(--delay);
-}
-
-.bg-icon path,
-.bg-icon circle,
-.bg-icon rect {
-  fill: none;
-}
-
-.bg-icon path[d^="M12 2.2"],
-.bg-icon path[d^="M12 3 "] {
-  fill: color-mix(in srgb, var(--icon) 35%, transparent);
-  stroke: var(--icon);
-}
-
-[data-theme="dark"] .bg-icon {
-  opacity: 0.24;
-}
-
 .shooting-stars {
   position: fixed;
   inset: 0;
@@ -525,25 +475,6 @@ html.cursor-button .cursor-ring {
   html.has-cursor,
   html.has-cursor * {
     cursor: none;
-  }
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 12px -26px;
-  }
-}
-
-@keyframes tumble {
-  from {
-    transform: rotateX(18deg) rotateY(0deg);
-  }
-  to {
-    transform: rotateX(18deg) rotateY(360deg);
   }
 }
 
