@@ -75,9 +75,10 @@ const work = document.querySelector("#work");
 const papers = document.querySelector("#papers");
 const stack = document.querySelector("#stack");
 const projects = document.querySelector("#projects");
+const rest = document.querySelector("#rest");
 const contact = document.querySelector("#contact");
 const scrollButton = document.querySelector(".scroll-down");
-const slides = [document.querySelector("#home"), about, work, papers, projects, stack, contact];
+const slides = [document.querySelector("#home"), about, work, papers, projects, stack, rest, contact];
 
 function replayDraw(section) {
   section.classList.remove("is-drawn");
@@ -109,6 +110,7 @@ function watchDraw(section) {
 }
 
 watchDraw(stack);
+watchDraw(rest);
 watchDraw(contact);
 
 function currentSlide() {
@@ -171,6 +173,12 @@ document.querySelector(".cta").addEventListener("click", (event) => {
   history.pushState(null, "", "#about");
 });
 
+document.querySelector(".portfolio-jump").addEventListener("click", (event) => {
+  event.preventDefault();
+  smoothScrollTo(rest);
+  history.pushState(null, "", "#rest");
+});
+
 scrollButton.addEventListener("click", () => {
   const here = currentSlide();
   const next = here === contact ? home : slides[slides.indexOf(here) + 1];
@@ -185,6 +193,7 @@ const glowPath = [
   [62, 44],
   [56, 56],
   [44, 64],
+  [38, 57],
   [32, 50],
 ];
 const glowPath2 = [
@@ -194,12 +203,33 @@ const glowPath2 = [
   [44, 60],
   [36, 50],
   [30, 42],
+  [35, 39],
   [40, 36],
 ];
 const glowColor = {
-  dark: ["rgba(232, 176, 72, 0.28)", "rgba(214, 112, 52, 0.16)"],
-  light: ["rgba(232, 176, 72, 0.55)", "rgba(214, 112, 52, 0.36)"],
+  dark: [
+    [232, 176, 72, 0.28],
+    [214, 112, 52, 0.16],
+  ],
+  light: [
+    [232, 176, 72, 0.55],
+    [214, 112, 52, 0.36],
+  ],
 };
+const glowShift = {
+  dark: [
+    [214, 136, 118, 0.32],
+    [184, 90, 104, 0.2],
+  ],
+  light: [
+    [214, 136, 118, 0.62],
+    [184, 90, 104, 0.44],
+  ],
+};
+
+function mixColor(a, b, t) {
+  return `rgba(${Math.round(mix(a[0], b[0], t))}, ${Math.round(mix(a[1], b[1], t))}, ${Math.round(mix(a[2], b[2], t))}, ${mix(a[3], b[3], t).toFixed(3)})`;
+}
 
 function mix(a, b, t) {
   return a + (b - a) * t;
@@ -224,11 +254,16 @@ function glowTarget() {
   }
   const ease = t * t * (3 - 2 * t);
   const next = Math.min(index + 1, glowPath.length - 1);
+  const restIndex = slides.indexOf(rest);
+  let shift = 0;
+  if (index === restIndex - 1) shift = ease;
+  else if (index === restIndex) shift = 1 - ease;
   return {
     x: mix(glowPath[index][0], glowPath[next][0], ease),
     y: mix(glowPath[index][1], glowPath[next][1], ease),
     x2: mix(glowPath2[index][0], glowPath2[next][0], ease),
     y2: mix(glowPath2[index][1], glowPath2[next][1], ease),
+    shift,
   };
 }
 
@@ -241,8 +276,9 @@ function paintWash() {
     glowPlace.y += (goal.y - glowPlace.y) * k;
     glowPlace.x2 += (goal.x2 - glowPlace.x2) * k;
     glowPlace.y2 += (goal.y2 - glowPlace.y2) * k;
-    root.style.setProperty("--glow", glowColor[theme][0]);
-    root.style.setProperty("--glow-2", glowColor[theme][1]);
+    const shift = goal.shift;
+    root.style.setProperty("--glow", mixColor(glowColor[theme][0], glowShift[theme][0], shift));
+    root.style.setProperty("--glow-2", mixColor(glowColor[theme][1], glowShift[theme][1], shift));
     root.style.setProperty("--glow-x", `${glowPlace.x}%`);
     root.style.setProperty("--glow-y", `${glowPlace.y}%`);
     root.style.setProperty("--glow-x2", `${glowPlace.x2}%`);
